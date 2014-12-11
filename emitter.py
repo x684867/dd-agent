@@ -28,10 +28,12 @@ requests_log.propagate = True
 control_chars = ''.join(map(unichr, range(0,32) + range(127,160)))
 control_char_re = re.compile('[%s]' % re.escape(control_chars))
 
+
 def remove_control_chars(s):
     return control_char_re.sub('', s)
 
-def http_emitter(message, log, agentConfig):
+
+def http_emitter(message, log, agentConfig, endpoint):
     "Send payload"
     url = agentConfig['dd_url']
 
@@ -46,13 +48,14 @@ def http_emitter(message, log, agentConfig):
 
     zipped = zlib.compress(payload)
 
-    log.debug("payload_size=%d, compressed_size=%d, compression_ratio=%.3f" % (len(payload), len(zipped), float(len(payload))/float(len(zipped))))
+    log.debug("payload_size=%d, compressed_size=%d, compression_ratio=%.3f"
+              % (len(payload), len(zipped), float(len(payload))/float(len(zipped))))
 
     apiKey = message.get('apiKey', None)
     if not apiKey:
         raise Exception("The http emitter requires an api key")
 
-    url = "{0}/intake?api_key={1}".format(url, apiKey)
+    url = "{0}/intake/{1}?api_key={2}".format(url, endpoint, apiKey)
 
     try:
         headers = post_headers(agentConfig, zipped)
