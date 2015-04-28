@@ -1,0 +1,14 @@
+machine:
+  python:
+    version: 2.7.9
+
+dependencies:
+  override:
+    - bundle install
+    - rake ci:circleci:install
+  cache_directories:
+    - ~/dd-agent/embedded
+
+test:
+  override:
+    - rake ci:circleci:run

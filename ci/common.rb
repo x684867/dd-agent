@@ -163,7 +163,7 @@ namespace :ci do
       # FIXME: make the other filters than param configurable
       # For integrations that cannot be easily installed in a
       # separate dir we symlink stuff in the rootdir
-      sh %(PATH=$INTEGRATIONS_DIR/bin:$PATH nosetests -v -A '#{nose}' tests)
+      sh %(PATH=$INTEGRATIONS_DIR/bin:$PATH nosetests --with-xunit --xunit-file=#{ENV['CIRCLE_TEST_REPORTS']}/nosetests_#{flavor}.xml -v -A '#{nose}' tests)
       t.reenable
     end
 

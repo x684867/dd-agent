@@ -2,6 +2,7 @@
 # encoding: utf-8
 
 require 'rake/clean'
+require './ci/resources/circleci'
 
 # Flavored Travis CI jobs
 require './ci/apache'
