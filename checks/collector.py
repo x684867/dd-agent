@@ -543,6 +543,7 @@ class Collector(object):
             current_check_metrics = check.get_metrics()
             current_check_events = check.get_events()
             current_service_checks = check.get_service_checks()
+            current_service_metadata = check.get_service_metadata()
 
             check_stats = check._get_internal_profiling_stats()
 
@@ -554,6 +555,7 @@ class Collector(object):
             print "Metrics: \n{0}".format(pprint.pformat(current_check_metrics))
             print "Events: \n{0}".format(pprint.pformat(current_check_events))
             print "Service Checks: \n{0}".format(pprint.pformat(current_service_checks))
+            print "Service Metadata: \n{0}".format(pprint.pformat(current_service_metadata))
 
         except Exception:
             log.exception("Error running check %s" % check.name)
