@@ -1,9 +1,9 @@
 
 import os
-import threading
+import subprocess
 from checks import AgentCheck
 
-class EximCheck(AgentCheck):
+class MailCheck(AgentCheck):
     """
     This class performs a log analysis for the exim4 mail server (MTA)
 
@@ -20,13 +20,9 @@ class EximCheck(AgentCheck):
 
 
     def check(self, instance):
-        config = self._get_config(instance)
-
-        logfile=config['logfile']
-        tags = config['tags']
-
+        #config = self._get_config(instance)
+        tags=['mailq','exim4']
         self._get_queue_stats(tags)
-
         return {'tags': tags}
 
     def _get_queue_stats(self,tags):
