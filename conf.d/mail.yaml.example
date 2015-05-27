@@ -1,0 +1,15 @@
+# The user running dd-agent must have passwordless sudo access for the find
+# command to run the postfix check.  Here's an example:
+#
+# example /etc/sudoers entry:
+#          dd-agent ALL=(ALL) NOPASSWD:/usr/bin/mailq
+
+init_config:
+
+instances:
+    - instance: localhost
+      tags:
+        - mytag1
+        - mytag2
+        - mytag3
+        - exim
